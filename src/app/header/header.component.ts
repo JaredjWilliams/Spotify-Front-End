@@ -24,7 +24,7 @@ export class HeaderComponent implements OnInit {
   }
 
   isUserLoggedIn() {
-    return sessionStorage.getItem(AUTHENTICATED_USER) === null;
+    return sessionStorage.getItem(AUTHENTICATED_USER) !== null;
   }
 
   logout() {
