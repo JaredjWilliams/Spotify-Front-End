@@ -31,7 +31,7 @@ const checkStatus = (response: any) => {
   }
   const error: any = new Error(response.statusText);
   error.response = response;
-  throw error;
+  throw error.response;
 };
 
 /**
