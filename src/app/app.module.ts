@@ -9,13 +9,22 @@ import {HttpClientModule} from "@angular/common/http";
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { GamePageComponent } from './game-page/game-page.component';
+import { LoginComponent } from './login/login.component';
 
 const routes: Routes = [
-    { path: "", component: HomeComponent }
+    { path: "", component: HomeComponent },
+    { path: "login", component: LoginComponent },
 ];
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent, HeaderComponent, FooterComponent, GamePageComponent],
+  declarations: [
+      AppComponent,
+      HomeComponent,
+      HeaderComponent,
+      FooterComponent,
+      GamePageComponent,
+      LoginComponent
+  ],
   imports: [
       BrowserModule,
     FormsModule,
