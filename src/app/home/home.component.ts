@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import fetchFromSpotify, { request } from "../../services/api";
+import {HttpClient} from "@angular/common/http";
 
 const AUTH_ENDPOINT =
   "https://nuod0t2zoe.execute-api.us-east-2.amazonaws.com/FT-Classroom/spotify-auth-token";
@@ -11,7 +12,9 @@ const TOKEN_KEY = "whos-who-access-token";
   styleUrls: ["./home.component.css"],
 })
 export class HomeComponent implements OnInit {
-  constructor() {}
+  constructor(
+      private http: HttpClient
+  ) {}
 
   genres: String[] = ["House", "Alternative", "J-Rock", "R&B"];
   selectedGenre: String = "";
@@ -19,7 +22,11 @@ export class HomeComponent implements OnInit {
   configLoading: boolean = false;
   token: String = "";
 
+
+
   ngOnInit(): void {
+
+
     this.authLoading = true;
     const storedTokenString = localStorage.getItem(TOKEN_KEY);
     if (storedTokenString) {
@@ -29,8 +36,15 @@ export class HomeComponent implements OnInit {
         this.authLoading = false;
         this.token = storedToken.value;
         this.loadGenres(storedToken.value);
+        fetchFromSpotify({ token: JSON.parse(localStorage.getItem(TOKEN_KEY)!).value, endpoint: "albums/4aawyAB9vmqN3uQ7FjRGTy" })
+            .then((response) => {
+              console.log(response);
+            }).catch((error) => {
+            console.error(error);
+        });
         return;
       }
+
     }
     console.log("Sending request to AWS endpoint");
     request(AUTH_ENDPOINT).then(({ access_token, expires_in }) => {
@@ -43,7 +57,30 @@ export class HomeComponent implements OnInit {
       this.token = newToken.value;
       this.loadGenres(newToken.value);
     });
+
+
   }
+
+  createUser() {
+    return this.http.post("http://localhost:8080/users", {
+      credentials: {
+        username: "test",
+        password: "testing"
+      },
+      profile: {
+        email: "testing@gmail.com",
+        firstName: "Test",
+      },
+      settings: {
+        difficulty: "Easy",
+        hints: true
+      }
+
+    }).subscribe((data) => {
+        console.log(data);
+    });
+    }
+
 
   loadGenres = async (t: any) => {
     this.configLoading = true;
@@ -79,4 +116,7 @@ export class HomeComponent implements OnInit {
     console.log(this.selectedGenre);
     console.log(TOKEN_KEY);
   }
+
+
+
 }

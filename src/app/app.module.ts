@@ -5,12 +5,20 @@ import { RouterModule, Routes } from "@angular/router";
 
 import { AppComponent } from "./app.component";
 import { HomeComponent } from "./home/home.component";
+import {HttpClientModule} from "@angular/common/http";
+import { HeaderComponent } from './header/header.component';
 
 const routes: Routes = [{ path: "", component: HomeComponent }];
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent],
-  imports: [BrowserModule, FormsModule, RouterModule.forRoot(routes)],
+  declarations: [AppComponent, HomeComponent, HeaderComponent],
+  imports: [
+      BrowserModule,
+    FormsModule,
+    RouterModule.forRoot(routes),
+    HttpClientModule,
+  ],
+
   providers: [],
   bootstrap: [AppComponent],
 })
