@@ -10,11 +10,14 @@ import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { GamePageComponent } from './game-page/game-page.component';
 import { LoginComponent } from './login/login.component';
+import {RouterGuardService} from "./services/router-guard.service";
+
 
 const routes: Routes = [
-    { path: "", component: HomeComponent },
-    { path: "home/:name", component: HomeComponent },
+    { path: "", component: LoginComponent },
     { path: "login", component: LoginComponent },
+    { path: "home/:name", component: HomeComponent, canActivate: [RouterGuardService] },
+
 ];
 
 @NgModule({
