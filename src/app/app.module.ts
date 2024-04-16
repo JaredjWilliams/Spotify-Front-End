@@ -8,11 +8,14 @@ import { HomeComponent } from "./home/home.component";
 import {HttpClientModule} from "@angular/common/http";
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
+import { GamePageComponent } from './game-page/game-page.component';
 
-const routes: Routes = [{ path: "", component: HomeComponent }];
+const routes: Routes = [
+    { path: "", component: HomeComponent }
+];
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent, HeaderComponent, FooterComponent],
+  declarations: [AppComponent, HomeComponent, HeaderComponent, FooterComponent, GamePageComponent],
   imports: [
       BrowserModule,
     FormsModule,
