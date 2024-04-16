@@ -3,6 +3,7 @@
 
 :root {
     --primary-color: #2C3E50;
+    --primary-background: #eeeeee
 }
 
 .primary-background {
@@ -13,4 +14,9 @@
     font-family: "Pacifico", cursive;
     font-weight: 400;
     font-style: normal;
+}
+
+.visualizer {
+    border: 2px solid black;
+    padding: 2px;
 }
