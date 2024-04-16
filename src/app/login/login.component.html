@@ -8,6 +8,11 @@
 
             <button class="btn btn-success mt-5" (click)="handleLogin()">Login</button>
         </div>
+        <ng-container *ngIf="invalidLogin">
+            <div class="alert alert-danger mt-5">
+                {{errorMessage}}
+            </div>
+        </ng-container>
     </div>
 
 

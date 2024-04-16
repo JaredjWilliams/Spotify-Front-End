@@ -6,10 +6,12 @@
             <li class="nav-link" routerLink="">Home</li>
             <li class="nav-link" routerLink="/leaderboard">Leaderboard</li>
             <li class="nav-link" routerLink="/settings">Settings</li>
+            <li class="nav-link"><button class="btn btn-danger" (click)="clearSessionStorage()">Clear Session Storage</button></li>
         </ul>
 
         <ul class="navbar-nav navbar-collapse justify-content-end">
-            <li class="nav-link m-1 p-1" routerLink="/login">Login</li>
+            <li *ngIf="isUserLoggedIn()" class="nav-link m-1 p-1" routerLink="/login">Login</li>
+            <li *ngIf="!isUserLoggedIn()" routerLink="" (click)="logout()" class="nav-link m-1 p-1">Logout</li>
         </ul>
 
     </nav>
