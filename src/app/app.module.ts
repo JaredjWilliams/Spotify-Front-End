@@ -11,6 +11,7 @@ import { FooterComponent } from './footer/footer.component';
 import { GamePageComponent } from './game-page/game-page.component';
 import { LoginComponent } from './login/login.component';
 import {RouterGuardService} from "./services/router-guard.service";
+import { SearcherComponent } from './searcher/searcher.component';
 
 
 const routes: Routes = [
@@ -27,7 +28,8 @@ const routes: Routes = [
       HeaderComponent,
       FooterComponent,
       GamePageComponent,
-      LoginComponent
+      LoginComponent,
+      SearcherComponent
   ],
   imports: [
       BrowserModule,

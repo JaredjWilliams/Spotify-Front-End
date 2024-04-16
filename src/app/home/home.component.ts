@@ -1,10 +1,12 @@
 import { Component, OnInit } from "@angular/core";
 import fetchFromSpotify, { request } from "../../services/api";
 import {HttpClient} from "@angular/common/http";
+import {SportifyService} from "../services/sportify.service";
+
 
 const AUTH_ENDPOINT =
   "https://nuod0t2zoe.execute-api.us-east-2.amazonaws.com/FT-Classroom/spotify-auth-token";
-const TOKEN_KEY = "whos-who-access-token";
+export const TOKEN_KEY = "whos-who-access-token";
 
 @Component({
   selector: "app-home",
@@ -12,8 +14,10 @@ const TOKEN_KEY = "whos-who-access-token";
   styleUrls: ["./home.component.css"],
 })
 export class HomeComponent implements OnInit {
+
   constructor(
-      private http: HttpClient
+      private http: HttpClient,
+      private service : SportifyService
   ) {}
 
   genres: String[] = ["House", "Alternative", "J-Rock", "R&B"];
@@ -36,12 +40,13 @@ export class HomeComponent implements OnInit {
         this.authLoading = false;
         this.token = storedToken.value;
         this.loadGenres(storedToken.value);
-        fetchFromSpotify({ token: JSON.parse(localStorage.getItem(TOKEN_KEY)!).value, endpoint: "albums/4aawyAB9vmqN3uQ7FjRGTy" })
-            .then((response) => {
-              console.log(response);
-            }).catch((error) => {
-            console.error(error);
-        });
+        this.service.getArtistAlbums("Taylor Swift")
+            .then((data) => {
+                console.log(data);
+            })
+            .catch((error) => {
+                console.error(error);
+            });
         return;
       }
 
