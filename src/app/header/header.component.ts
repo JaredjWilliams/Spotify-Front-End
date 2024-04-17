@@ -27,6 +27,10 @@ export class HeaderComponent implements OnInit {
     return sessionStorage.getItem(AUTHENTICATED_USER) !== null;
   }
 
+  getUsername() {
+    return sessionStorage.getItem(AUTHENTICATED_USER);
+  }
+
   logout() {
     this.loginService.clearSessionStorage();
     this.router.navigate(["login"]);
