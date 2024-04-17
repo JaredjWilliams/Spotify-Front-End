@@ -29,8 +29,4 @@ export class LoginService {
     sessionStorage.removeItem(AUTHENTICATED_USER)
   }
 
-  getLeaderBoard(n: number) {
-    return this.http.get(`${urlBase}/users/leaderboard/${n}`)
-  }
-
 }

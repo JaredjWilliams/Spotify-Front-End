@@ -13,6 +13,7 @@ import { LoginComponent } from './login/login.component';
 import {RouterGuardService} from "./services/router-guard.service";
 import { SearcherComponent } from './searcher/searcher.component';
 import { LeaderboardComponent } from './leaderboard/leaderboard.component';
+import { SettingsPageComponent } from './settings-page/settings-page.component';
 
 
 const routes: Routes = [
@@ -20,6 +21,7 @@ const routes: Routes = [
     { path: "login", component: LoginComponent },
     { path: "home/:name", component: HomeComponent, canActivate: [RouterGuardService] },
     { path: "leaderboard", component: LeaderboardComponent },
+    { path: "settings", component: SettingsPageComponent },
 
 ];
 
@@ -32,7 +34,8 @@ const routes: Routes = [
       GamePageComponent,
       LoginComponent,
       SearcherComponent,
-      LeaderboardComponent
+      LeaderboardComponent,
+      SettingsPageComponent
   ],
   imports: [
       BrowserModule,
