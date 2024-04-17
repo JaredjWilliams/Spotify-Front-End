@@ -56,16 +56,8 @@ export class SearcherComponent implements OnInit {
     this.service.getAlbum(this.search)
         .then((data) => jsonToAlbum(data[0]))
         .then((data) => this.album = data)
-        .then((data) => {
-            console.log(this.album)
-            return data
-        })
-        .then((data) => this.getSeveralTracks())
+        .then((data) => this.getAlbumTracks(data.id))
         .then((data) => jsonToTracks(data))
-        .then((data) => {
-            console.log(data)
-            return data
-        })
         .then((data) => this.tracks = data)
         .then(() => this.isSearched = true)
         .catch((error) => console.log(error));
@@ -73,7 +65,7 @@ export class SearcherComponent implements OnInit {
 
   private async getSeveralTracks() {
       try {
-          return await this.service.getServeralTracks(SONGS());
+          return await this.service.getSeveralTracks(SONGS());
       } catch (error) {
           return console.error(error);
       }
