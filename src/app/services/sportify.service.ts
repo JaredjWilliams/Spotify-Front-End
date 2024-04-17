@@ -36,11 +36,22 @@ export class SportifyService {
 
   }
 
-    getAlbums(search: string) {
+    getAlbum(search: string) {
         const token = this.getToken();
         return fetchFromSpotify({ token, endpoint: `search?q=${search}&type=album` })
             .then((data) => {
                 return data.albums.items;
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+    }
+
+    getAlbumTracks(albumId: string) {
+        const token = this.getToken();
+        return fetchFromSpotify({ token, endpoint: `albums/${albumId}/tracks` })
+            .then((data) => {
+                return data.items;
             })
             .catch((error) => {
                 console.error(error);
