@@ -1,7 +1,8 @@
 import { Component, OnInit } from "@angular/core";
 import fetchFromSpotify, { request } from "../../services/api";
 import {HttpClient} from "@angular/common/http";
-import {SportifyService} from "../services/sportify.service";
+import {SpotifyService} from "../services/spotify.service";
+import {AUTHENTICATED_USER, LoginService} from "../services/login.service";
 
 
 const AUTH_ENDPOINT =
@@ -17,7 +18,7 @@ export class HomeComponent implements OnInit {
 
   constructor(
       private http: HttpClient,
-      private service : SportifyService
+      private loginService: LoginService
   ) {}
 
   genres: String[] = ["House", "Alternative", "J-Rock", "R&B"];
@@ -40,13 +41,6 @@ export class HomeComponent implements OnInit {
         this.authLoading = false;
         this.token = storedToken.value;
         this.loadGenres(storedToken.value);
-        this.service.getArtistAlbums("Taylor Swift")
-            .then((data) => {
-                console.log(data);
-            })
-            .catch((error) => {
-                console.error(error);
-            });
         return;
       }
 

@@ -32,4 +32,5 @@ export class LoginService {
   getLeaderBoard(n: number) {
     return this.http.get(`${urlBase}/users/leaderboard/${n}`)
   }
+
 }
