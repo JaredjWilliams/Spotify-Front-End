@@ -58,7 +58,7 @@ export class SpotifyService {
             });
     }
 
-    getServeralTracks(idsString: string) {
+    getSeveralTracks(idsString: string) {
         const token = this.getToken();
         return fetchFromSpotify({ token, endpoint: `tracks?ids=${idsString}` })
             .then((data) => {

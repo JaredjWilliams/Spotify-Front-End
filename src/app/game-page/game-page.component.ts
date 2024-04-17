@@ -4,7 +4,7 @@ import {AUTHENTICATED_USER, LoginService} from "../services/login.service";
 import {Track} from "../models/Track";
 import {Album} from "../models/Album";
 import {Question} from "../models/Question";
-import {tracksToQuestions} from "../utils/utils";
+import {randomizedArray, testing, tracksToQuestions} from "../utils/utils";
 import {UserService} from "../services/user.service";
 import {Router} from "@angular/router";
 
@@ -65,7 +65,8 @@ export class GamePageComponent implements OnInit {
 
   receiveTracks(tracks: Track[]) {
     this.tracks = tracks;
-    this.questions = tracksToQuestions(tracks);
+    this.questions = testing(tracksToQuestions(tracks));
+    console.log("Questions: ", this.questions);
     this.updateCurrentQuestion(0)
     this.updatePreview();
   }

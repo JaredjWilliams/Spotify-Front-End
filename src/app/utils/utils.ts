@@ -1,6 +1,7 @@
 import {plainToInstance} from "class-transformer";
 import {Album} from "../models/Album";
 import {Track} from "../models/Track";
+import {Question} from "../models/Question";
 
 
 export const jsonToAlbum = (json: any) => plainToInstance(Album, json)
@@ -16,3 +17,11 @@ return {
         answer: track.name
     }
 })
+
+export const randomizedArray = (array: Question[]) => array.length > 0 ? array.sort(() => Math.random() - 0.5) : array
+export const testing = (array  : Question[]) => {
+    return array.slice()
+        .map(value => ({value, sort: Math.random()}))
+        .sort((a, b) => a.sort - b.sort)
+        .map(({value}) => value);
+}
