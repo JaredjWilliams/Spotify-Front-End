@@ -1,8 +1,10 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {SportifyService} from "../services/sportify.service";
+import {SpotifyService} from "../services/spotify.service";
 import {jsonToAlbum, jsonToAlbums, jsonToTracks} from "../utils/utils";
 import {Album} from "../models/Album";
 import {Track} from "../models/Track";
+import {SONGS} from "../utils/seeder";
+import {AUTHENTICATED_USER, LoginService} from "../services/login.service";
 
 
 @Component({
@@ -12,6 +14,7 @@ import {Track} from "../models/Track";
 })
 export class SearcherComponent implements OnInit {
 
+    welcomeMessage = this.loginService.isUserLoggedIn() ?  `Welcome to the Yfitops Game ${sessionStorage.getItem(AUTHENTICATED_USER)}!` : "Please login to play the game";
   search: string = "";
   selectedOption: any = "album"
   searchResults: any = [];
@@ -20,8 +23,13 @@ export class SearcherComponent implements OnInit {
   isSearched = false;
 
   constructor(
-      private service : SportifyService
+      private service : SpotifyService,
+      private loginService: LoginService
   ) { }
+
+    delay(t: number) {
+        return new Promise(resolve => setTimeout(resolve, t));
+    }
 
   ngOnInit(): void {
   }
@@ -32,7 +40,7 @@ export class SearcherComponent implements OnInit {
       this.getArtistAlbums();
     } else {
         console.log("Searching for album tracks");
-      this.getAlbum();
+         this.getAlbum();
     }
   }
 
@@ -48,10 +56,27 @@ export class SearcherComponent implements OnInit {
     this.service.getAlbum(this.search)
         .then((data) => jsonToAlbum(data[0]))
         .then((data) => this.album = data)
-        .then((data) => this.getAlbumTracks(data.id))
-        .then((data) => this.tracks = data!)
+        .then((data) => {
+            console.log(this.album)
+            return data
+        })
+        .then((data) => this.getSeveralTracks())
+        .then((data) => jsonToTracks(data))
+        .then((data) => {
+            console.log(data)
+            return data
+        })
+        .then((data) => this.tracks = data)
         .then(() => this.isSearched = true)
         .catch((error) => console.log(error));
+  }
+
+  private async getSeveralTracks() {
+      try {
+          return await this.service.getServeralTracks(SONGS());
+      } catch (error) {
+          return console.error(error);
+      }
   }
 
   private async getAlbumTracks(albumId: string) {

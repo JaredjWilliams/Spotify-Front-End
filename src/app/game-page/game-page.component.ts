@@ -1,8 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import {ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {NgForm} from "@angular/forms";
 import {AUTHENTICATED_USER, LoginService} from "../services/login.service";
 import {Track} from "../models/Track";
 import {Album} from "../models/Album";
+import {Question} from "../models/Question";
+import {tracksToQuestions} from "../utils/utils";
+import {UserService} from "../services/user.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-game-page',
@@ -11,21 +15,48 @@ import {Album} from "../models/Album";
 })
 export class GamePageComponent implements OnInit {
 
-  welcomeMessage = this.loginService.isUserLoggedIn() ?  `Welcome to the Yfitops Game ${sessionStorage.getItem(AUTHENTICATED_USER)}!` : "Please login to play the game";
-  items = [1,2, 3, 4];
+  @ViewChild('audioPlayer') audioPlayer!: ElementRef;
+
   isReadyToTest = false;
   album!: Album;
   tracks!: Track[];
+  questions!: Question[];
+  currentQuestion! : Question;
+  selection: string = '';
+  correct: number = 0;
+  incorrect: number = 0;
+  questionNumber: number = 1;
+  preview: string = '';
+  isFinished: boolean = false;
 
 
   constructor(
       private loginService: LoginService,
+      private userService: UserService,
+      private router: Router
   ) { }
 
   ngOnInit(): void {
   }
 
-  onSubmit(form: NgForm){
+  onSubmit(){
+    if (this.selection === this.currentQuestion.answer) {
+      this.correct++;
+    } else {
+      this.incorrect++;
+    }
+    console.log("question number: " + this.questionNumber);
+    console.log("questions length: " + this.questions.length);
+    if (this.questionNumber === this.questions.length) {
+        this.isFinished = true;
+    } else {
+      this.questionNumber++;
+      this.updateCurrentQuestion(this.questionNumber - 1);
+      this.updatePreview();
+      this.audioPlayer.nativeElement.load();
+      this.audioPlayer.nativeElement.play();
+    }
+
   }
 
   receiveAlbum(album: Album) {
@@ -34,9 +65,46 @@ export class GamePageComponent implements OnInit {
 
   receiveTracks(tracks: Track[]) {
     this.tracks = tracks;
+    this.questions = tracksToQuestions(tracks);
+    this.updateCurrentQuestion(0)
+    this.updatePreview();
+  }
+
+  updateCurrentQuestion(index: number) {
+    this.currentQuestion = this.questions[index];
+  }
+
+  updatePreview() {
+    this.preview = this.currentQuestion.preview;
   }
 
   searchFinished(readyToTest: boolean) {
     this.isReadyToTest = readyToTest;
+  }
+
+  save(){
+    this.userService.saveScore(this.correct).subscribe({
+      next: (data) => {
+        console.log(data);
+        this.reset()
+      },
+      error: (error) => {
+        console.error(error);
+      }
+    });
+  }
+
+  reset() {
+    this.isReadyToTest = false;
+    this.album = new Album();
+    this.tracks = [];
+    this.questions = [];
+    this.currentQuestion = new Question();
+    this.selection = '';
+    this.correct = 0;
+    this.incorrect = 0;
+    this.questionNumber = 1;
+    this.preview = '';
+    this.isFinished = false;
   }
 }
