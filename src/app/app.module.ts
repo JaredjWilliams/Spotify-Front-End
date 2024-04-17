@@ -12,12 +12,14 @@ import { GamePageComponent } from './game-page/game-page.component';
 import { LoginComponent } from './login/login.component';
 import {RouterGuardService} from "./services/router-guard.service";
 import { SearcherComponent } from './searcher/searcher.component';
+import { LeaderboardComponent } from './leaderboard/leaderboard.component';
 
 
 const routes: Routes = [
     { path: "", component: LoginComponent },
     { path: "login", component: LoginComponent },
     { path: "home/:name", component: HomeComponent, canActivate: [RouterGuardService] },
+    { path: "leaderboard", component: LeaderboardComponent },
 
 ];
 
@@ -29,7 +31,8 @@ const routes: Routes = [
       FooterComponent,
       GamePageComponent,
       LoginComponent,
-      SearcherComponent
+      SearcherComponent,
+      LeaderboardComponent
   ],
   imports: [
       BrowserModule,
