@@ -15,6 +15,7 @@ export class RouterGuardService {
   canActivate: CanActivateFn = (route: ActivatedRouteSnapshot, state : RouterStateSnapshot) => {
 
     if (this.loginService.isUserLoggedIn()) {
+      console.log("User is logged in")
       return true;
     }
 
