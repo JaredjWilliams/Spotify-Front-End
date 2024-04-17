@@ -1,20 +1,29 @@
 <div class=" game-page-container">
     <h1 class="p-4 pacifico-regular">{{welcomeMessage}}</h1>
-    <p>Search an artist, album, or genre and quiz yourself</p>
-    <app-searcher></app-searcher>
-    <p class="p-4">Current Results: 1 - 2</p>
-    <img src="https://via.placeholder.com/150" alt="Music Not image" class="music-cover">
-    <div class="flex-row controls align-items-center justify-content-center">
+
+
+    <app-searcher *ngIf="!isReadyToTest"
+            (albumSelected)="receiveAlbum($event)"
+            (tracksSelected)="receiveTracks($event)"
+            (searchFinished)="searchFinished($event)"
+    ></app-searcher>
+
+    <ng-container *ngIf="isReadyToTest">
+        <p class="p-4">Current Results: 1 - 2</p>
+        <img src="{{album.images[1].url}}" alt="Music Not image" class="music-cover">
+        <div class="flex-row controls align-items-center justify-content-center">
             <li class="fas fa-pause p-2"></li>
             <li class="fas fa-play p-2"></li>
-    </div>
-    <div>
-        <form #myForm="ngForm" (ngSubmit)="onSubmit(myForm)" class="flex-column d-flex">
-            <div *ngFor="let item of items; let i = index">
-                <input  type="radio" id="option{{item}}" name="answer" value="{{item}}" ngModel>
-                <label  class="pl-1" for="option{{item}}">{{item}}</label>
-            </div>
-            <button  class="btn btn-success m-5" type="submit">Submit</button>
-        </form>
-    </div>
+        </div>
+        <div>
+            <form #myForm="ngForm" (ngSubmit)="onSubmit(myForm)" class="flex-column d-flex">
+                <div *ngFor="let item of items; let i = index">
+                    <input  type="radio" id="option{{item}}" name="answer" value="{{item}}" ngModel>
+                    <label  class="pl-1" for="option{{item}}">{{item}}</label>
+                </div>
+                <button  class="btn btn-success m-5" type="submit">Submit</button>
+            </form>
+        </div>
+    </ng-container>
+
 </div>
