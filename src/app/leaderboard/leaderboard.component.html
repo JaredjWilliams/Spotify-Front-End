@@ -1,0 +1,18 @@
+<h2>Leaderboard</h2>
+
+<table class="leaderboard-table">
+  <thead>
+    <tr>
+      <th>Username</th>
+      <th>First Name</th>
+      <th>Score</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let entry of entries">
+      <td>{{ entry.username }}</td>
+      <td>{{ entry.firstName }}</td>
+      <td>{{ entry.score }}</td>
+    </tr>
+  </tbody>
+</table>
