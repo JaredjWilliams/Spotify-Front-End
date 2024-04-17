@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { LoginService } from '../services/login.service';
+import { UserService } from '../services/user.service';
 
 interface LeaderBoardItem {
   username: string;
@@ -19,10 +19,10 @@ export class LeaderboardComponent implements OnInit {
   entries: LeaderBoardItem[] = [];
   errorMsg: string = '';
 
-  constructor(private loginService: LoginService) { }
+  constructor(private userService: UserService) { }
 
   ngOnInit(): void {
-    this.loginService.getLeaderBoard(displayAmt).subscribe({
+    this.userService.getLeaderBoard(displayAmt).subscribe({
       next: (response: any) => {
         console.log(response)
         this.entries = response;
