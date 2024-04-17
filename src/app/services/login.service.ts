@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 
 export const AUTHENTICATED_USER = 'authenticatedUser'
+const urlBase = "http://localhost:8080";
 
 @Injectable({
   providedIn: 'root'
@@ -21,10 +22,14 @@ export class LoginService {
   }
 
   getUser(username: string) {
-    return this.http.get(`http://localhost:8080/users/${username}`)
+    return this.http.get(`${urlBase}/users/${username}`)
   }
 
   clearSessionStorage() {
     sessionStorage.removeItem(AUTHENTICATED_USER)
+  }
+
+  getLeaderBoard(n: number) {
+    return this.http.get(`${urlBase}/users/leaderboard/${n}`)
   }
 }
