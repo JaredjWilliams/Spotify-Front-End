@@ -26,10 +26,6 @@ export class SearcherComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  delay(t: number) {
-    return new Promise(resolve => setTimeout(resolve, t));
-    }
-
   onSearch() {
     if(this.selectedOption === "artist") {
       console.log("Searching for artist albums");
@@ -53,8 +49,7 @@ export class SearcherComponent implements OnInit {
         .then((data) => jsonToAlbum(data[0]))
         .then((data) => this.album = data)
         .then((data) => this.getAlbumTracks(data.id))
-        .then((data) => jsonToTracks(data))
-        .then((data) => this.tracks = data)
+        .then((data) => this.tracks = data!)
         .then(() => this.isSearched = true)
         .catch((error) => console.log(error));
   }
@@ -74,11 +69,11 @@ export class SearcherComponent implements OnInit {
         this.searchFinished.emit(true);
     }
 
-    @Output() albumSelected = new EventEmitter<Album>();
-    @Output() tracksSelected = new EventEmitter<Track[]>();
-    @Output() searchFinished = new EventEmitter<boolean>();
-
     resetSearch() {
         this.isSearched = false;
     }
+
+    @Output() albumSelected = new EventEmitter<Album>();
+    @Output() tracksSelected = new EventEmitter<Track[]>();
+    @Output() searchFinished = new EventEmitter<boolean>();
 }

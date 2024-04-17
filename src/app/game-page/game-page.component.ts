@@ -26,16 +26,13 @@ export class GamePageComponent implements OnInit {
   }
 
   onSubmit(form: NgForm){
-    console.log("Form submitted");
   }
 
   receiveAlbum(album: Album) {
-    console.log("Album received: ", album);
     this.album = album;
   }
 
   receiveTracks(tracks: Track[]) {
-    console.log("Tracks received: ", tracks);
     this.tracks = tracks;
   }
 
