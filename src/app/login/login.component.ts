@@ -2,6 +2,24 @@ import { Component, OnInit } from '@angular/core';
 import {LoginService} from "../services/login-service/login.service";
 import {Router} from "@angular/router";
 
+interface LoginResp {
+  username: string;
+  profile: {
+    firstName: string;
+    lastName: string | null;
+    email: string;
+    phone: string | null;
+  };
+  joined: number;
+  settings: {
+    difficulty: string;
+    timeLimit: number;
+    responseType: string;
+    genre: string[];
+    hints: boolean;
+  };
+}
+
 
 @Component({
   selector: 'app-login',
@@ -25,9 +43,10 @@ export class LoginComponent implements OnInit {
 
     handleLogin() {
       this.loginService.getUser(this.username).subscribe({
-        next: response => {
+        next: (response) => {
           console.log(response)
           sessionStorage.setItem("authenticatedUser", this.username);
+          sessionStorage.setItem('settings', JSON.stringify((response as LoginResp).settings));
           this.router.navigate(["home", this.username]);
         },
         error: error => {
