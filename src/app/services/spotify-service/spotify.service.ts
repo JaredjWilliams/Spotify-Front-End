@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import fetchFromSpotify from "../../services/api";
-import {TOKEN_KEY} from "../home/home.component";
+import fetchFromSpotify from "../../../services/api";
+import {TOKEN_KEY} from "../../home/home.component";
 
 @Injectable({
   providedIn: 'root'

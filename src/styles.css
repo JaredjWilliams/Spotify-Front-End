@@ -36,3 +36,32 @@
 .rounded-corners {
     border-radius: 10px;
 }
+
+.fadein {
+    animation: fadein 1.5s ease-in-out forwards;
+}
+
+@keyframes fadein {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+
+.element1 {
+    opacity: 0;
+    animation-delay: 0s; /* Start immediately */
+}
+
+.element2 {
+    opacity: 0;
+    animation-delay: 1s; /* Start after 2 seconds */
+}
+
+.element3 {
+    opacity: 0;
+    animation-delay: 2s; /* Start after 4 seconds */
+}

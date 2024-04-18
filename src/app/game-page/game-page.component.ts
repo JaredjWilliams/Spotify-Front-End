@@ -1,11 +1,11 @@
 import {ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {NgForm} from "@angular/forms";
-import {AUTHENTICATED_USER, LoginService} from "../services/login.service";
+import {AUTHENTICATED_USER, LoginService} from "../services/login-service/login.service";
 import {Track} from "../models/Track";
 import {Album} from "../models/Album";
 import {Question} from "../models/Question";
 import {randomizedArray, testing, tracksToQuestions} from "../utils/utils";
-import {UserService} from "../services/user.service";
+import {UserService} from "../services/user-service/user.service";
 import {Router} from "@angular/router";
 
 @Component({
@@ -45,8 +45,6 @@ export class GamePageComponent implements OnInit {
     } else {
       this.incorrect++;
     }
-    console.log("question number: " + this.questionNumber);
-    console.log("questions length: " + this.questions.length);
     if (this.questionNumber === this.questions.length) {
         this.isFinished = true;
     } else {
@@ -84,7 +82,8 @@ export class GamePageComponent implements OnInit {
   }
 
   save(){
-    this.userService.saveScore(this.correct).subscribe({
+    const attempt = this.createAttempt();
+    this.userService.saveScore(attempt).subscribe({
       next: (data) => {
         console.log(data);
         this.reset()
@@ -93,6 +92,19 @@ export class GamePageComponent implements OnInit {
         console.error(error);
       }
     });
+  }
+
+  createAttempt() {
+    return {
+      credentials: {
+        username: this.loginService.getAuthenticatedUser(),
+        password: 'password'
+      },
+      score: this.correct,
+      albumName: this.album.name,
+      artistName: this.album.artists[0].name,
+      albumCover: this.album.images[2].url
+    };
   }
 
   reset() {

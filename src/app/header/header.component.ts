@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from "@angular/router";
-import {AUTHENTICATED_USER, LoginService} from "../services/login.service";
+import {AUTHENTICATED_USER, LoginService} from "../services/login-service/login.service";
 
 @Component({
   selector: 'app-header',

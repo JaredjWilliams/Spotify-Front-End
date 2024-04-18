@@ -29,4 +29,11 @@ export class LoginService {
     sessionStorage.removeItem(AUTHENTICATED_USER)
   }
 
+  getCredentials() {
+    return {
+      username: this.getAuthenticatedUser(),
+      password: 'password'
+    }
+  }
+
 }

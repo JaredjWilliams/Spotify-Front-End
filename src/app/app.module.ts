@@ -10,18 +10,20 @@ import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { GamePageComponent } from './game-page/game-page.component';
 import { LoginComponent } from './login/login.component';
-import {RouterGuardService} from "./services/router-guard.service";
+import {RouterGuardService} from "./services/router-guard/router-guard.service";
 import { SearcherComponent } from './searcher/searcher.component';
 import { LeaderboardComponent } from './leaderboard/leaderboard.component';
 import { SettingsPageComponent } from './settings-page/settings-page.component';
+import { HistoryComponent } from './history/history.component';
 
 
 const routes: Routes = [
     { path: "", component: LoginComponent },
     { path: "login", component: LoginComponent },
     { path: "home/:name", component: HomeComponent, canActivate: [RouterGuardService] },
-    { path: "leaderboard", component: LeaderboardComponent },
-    { path: "settings", component: SettingsPageComponent },
+    { path: "leaderboard", component: LeaderboardComponent, canActivate: [RouterGuardService]  },
+    { path: "settings", component: SettingsPageComponent, canActivate: [RouterGuardService]  },
+    { path: "history", component: HistoryComponent, canActivate: [RouterGuardService]  },
 
 ];
 
@@ -35,7 +37,8 @@ const routes: Routes = [
       LoginComponent,
       SearcherComponent,
       LeaderboardComponent,
-      SettingsPageComponent
+      SettingsPageComponent,
+      HistoryComponent
   ],
   imports: [
       BrowserModule,

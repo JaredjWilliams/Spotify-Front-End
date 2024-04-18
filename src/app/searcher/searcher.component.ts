@@ -1,10 +1,11 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {SpotifyService} from "../services/spotify.service";
+import {SpotifyService} from "../services/spotify-service/spotify.service";
 import {jsonToAlbum, jsonToAlbums, jsonToTracks} from "../utils/utils";
 import {Album} from "../models/Album";
 import {Track} from "../models/Track";
 import {SONGS} from "../utils/seeder";
-import {AUTHENTICATED_USER, LoginService} from "../services/login.service";
+import {AUTHENTICATED_USER, LoginService} from "../services/login-service/login.service";
+import {SEARCH_INPUTS} from "../constants";
 
 
 @Component({
@@ -16,7 +17,7 @@ export class SearcherComponent implements OnInit {
 
     welcomeMessage = this.loginService.isUserLoggedIn() ?  `Welcome to the Yfitops Game ${sessionStorage.getItem(AUTHENTICATED_USER)}!` : "Please login to play the game";
   search: string = "";
-  selectedOption: any = "album"
+  selectedOption: any = "Album"
   searchResults: any = [];
   album!: Album;
   tracks!: Track[];
@@ -27,20 +28,18 @@ export class SearcherComponent implements OnInit {
       private loginService: LoginService
   ) { }
 
-    delay(t: number) {
-        return new Promise(resolve => setTimeout(resolve, t));
-    }
-
   ngOnInit(): void {
   }
 
   onSearch() {
-    if(this.selectedOption === "artist") {
-      console.log("Searching for artist albums");
-      this.getArtistAlbums();
-    } else {
-        console.log("Searching for album tracks");
-         this.getAlbum();
+    switch (this.selectedOption) {
+        case "Artist":
+            this.getArtistAlbums();
+            break;
+        case "Album":
+            this.getAlbum();
+            break;
+        default:
     }
   }
 
@@ -56,7 +55,8 @@ export class SearcherComponent implements OnInit {
     this.service.getAlbum(this.search)
         .then((data) => jsonToAlbum(data[0]))
         .then((data) => this.album = data)
-        .then((data) => this.getAlbumTracks(data.id))
+        .then((data : Album ) => this.getSeveralTracks())
+        // .then((data) => this.getAlbumTracks(data.id))
         .then((data) => jsonToTracks(data))
         .then((data) => this.tracks = data)
         .then(() => this.isSearched = true)
@@ -93,4 +93,12 @@ export class SearcherComponent implements OnInit {
     @Output() albumSelected = new EventEmitter<Album>();
     @Output() tracksSelected = new EventEmitter<Track[]>();
     @Output() searchFinished = new EventEmitter<boolean>();
+
+    onSelectSearchContent($event: MouseEvent) {
+        let element = $event.target as HTMLSelectElement;
+        console.log(element.value);
+        this.selectedOption = element.value;
+    }
+
+    protected readonly SEARCH_INPUTS = SEARCH_INPUTS;
 }
