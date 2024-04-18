@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import fetchFromSpotify from "../../../services/api";
 import {TOKEN_KEY} from "../../home/home.component";
+import {HttpClient} from "@angular/common/http";
 
 @Injectable({
   providedIn: 'root'
@@ -9,6 +10,7 @@ export class SpotifyService {
 
 
   constructor(
+      private http: HttpClient
   ) { }
 
   getToken() : string {
@@ -63,6 +65,17 @@ export class SpotifyService {
         return fetchFromSpotify({ token, endpoint: `tracks?ids=${idsString}` })
             .then((data) => {
                 return data.tracks;
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+    }
+
+    getTrack(trackName: string) {
+        const token = this.getToken();
+        return fetchFromSpotify({ token, endpoint: `search?q=${trackName}&type=track&limit=3` })
+            .then((data) => {
+                return data.tracks.items;
             })
             .catch((error) => {
                 console.error(error);

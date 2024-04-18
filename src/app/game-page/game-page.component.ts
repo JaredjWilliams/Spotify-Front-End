@@ -1,10 +1,9 @@
-import {ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import {NgForm} from "@angular/forms";
-import {AUTHENTICATED_USER, LoginService} from "../services/login-service/login.service";
+import { Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {LoginService} from "../services/login-service/login.service";
 import {Track} from "../models/Track";
 import {Album} from "../models/Album";
 import {Question} from "../models/Question";
-import {randomizedArray, testing, tracksToQuestions} from "../utils/utils";
+import {randomizedArray, tracksToQuestions} from "../utils/utils";
 import {UserService} from "../services/user-service/user.service";
 import {Router} from "@angular/router";
 
@@ -33,28 +32,9 @@ export class GamePageComponent implements OnInit {
   constructor(
       private loginService: LoginService,
       private userService: UserService,
-      private router: Router
   ) { }
 
   ngOnInit(): void {
-  }
-
-  onSubmit(){
-    if (this.selection === this.currentQuestion.answer) {
-      this.correct++;
-    } else {
-      this.incorrect++;
-    }
-    if (this.questionNumber === this.questions.length) {
-        this.isFinished = true;
-    } else {
-      this.questionNumber++;
-      this.updateCurrentQuestion(this.questionNumber - 1);
-      this.updatePreview();
-      this.audioPlayer.nativeElement.load();
-      this.audioPlayer.nativeElement.play();
-    }
-
   }
 
   receiveAlbum(album: Album) {
@@ -63,7 +43,7 @@ export class GamePageComponent implements OnInit {
 
   receiveTracks(tracks: Track[]) {
     this.tracks = tracks;
-    this.questions = testing(tracksToQuestions(tracks));
+    this.questions = randomizedArray(tracksToQuestions(tracks));
     console.log("Questions: ", this.questions);
     this.updateCurrentQuestion(0)
     this.updatePreview();
@@ -79,6 +59,10 @@ export class GamePageComponent implements OnInit {
 
   searchFinished(readyToTest: boolean) {
     this.isReadyToTest = readyToTest;
+  }
+
+  receivesIsFinished(isFinished: boolean) {
+    this.isFinished = isFinished;
   }
 
   save(){

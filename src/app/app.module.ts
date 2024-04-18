@@ -15,6 +15,8 @@ import { SearcherComponent } from './searcher/searcher.component';
 import { LeaderboardComponent } from './leaderboard/leaderboard.component';
 import { SettingsPageComponent } from './settings-page/settings-page.component';
 import { HistoryComponent } from './history/history.component';
+import { PlaylistsComponent } from './playlists/playlists.component';
+import { GamePageTestComponent } from './game-page-test/game-page-test.component';
 
 
 const routes: Routes = [
@@ -24,6 +26,7 @@ const routes: Routes = [
     { path: "leaderboard", component: LeaderboardComponent, canActivate: [RouterGuardService]  },
     { path: "settings", component: SettingsPageComponent, canActivate: [RouterGuardService]  },
     { path: "history", component: HistoryComponent, canActivate: [RouterGuardService]  },
+    { path: "playlists", component: PlaylistsComponent, canActivate: [RouterGuardService]  },
 
 ];
 
@@ -38,7 +41,9 @@ const routes: Routes = [
       SearcherComponent,
       LeaderboardComponent,
       SettingsPageComponent,
-      HistoryComponent
+      HistoryComponent,
+      PlaylistsComponent,
+      GamePageTestComponent
   ],
   imports: [
       BrowserModule,
