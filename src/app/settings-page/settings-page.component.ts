@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { UserService } from '../services/user.service';
+import { UserService } from '../services/user-service/user.service';
 
 @Component({
   selector: 'app-settings-page',

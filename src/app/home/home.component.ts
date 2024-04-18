@@ -1,8 +1,8 @@
 import { Component, OnInit } from "@angular/core";
 import fetchFromSpotify, { request } from "../../services/api";
 import {HttpClient} from "@angular/common/http";
-import {SpotifyService} from "../services/spotify.service";
-import {AUTHENTICATED_USER, LoginService} from "../services/login.service";
+import {SpotifyService} from "../services/spotify-service/spotify.service";
+import {AUTHENTICATED_USER, LoginService} from "../services/login-service/login.service";
 
 
 const AUTH_ENDPOINT =
