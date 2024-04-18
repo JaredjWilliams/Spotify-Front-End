@@ -22,14 +22,8 @@ export class UserService {
     return this.http.get(`${urlBase}/users/leaderboard/${n}`)
   }
 
-  patchSettings(settings: any) {
-    const settingsRequest = {
-      credentials : {
-        username: this.loginService.getAuthenticatedUser(),
-        password: 'password'
-      },
-      settings
-    }
-    return this.http.patch(`${urlBase}/users/settings`, settingsRequest)
+  putSettings(settings: any) {
+    const username = this.loginService.getAuthenticatedUser();
+    return this.http.put(`${urlBase}/settings/${username}`, settings)
   }
 }
