@@ -1,6 +1,7 @@
-import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {Album} from "../models/Album";
 import {Question} from "../models/Question";
+import {Expose} from "class-transformer";
 
 @Component({
   selector: 'app-game-page-test',
@@ -10,20 +11,23 @@ import {Question} from "../models/Question";
 export class GamePageTestComponent implements OnInit {
 
   @ViewChild('audioPlayer') audioPlayer!: ElementRef;
-  @Input()  album!: Album;
-  questionNumber: number = 1;
-  correct: number = 0;
 
-  preview: string = '';
-  currentQuestion! : Question;
-  selection: string = '';
+  @Input() currentQuestion! : Question;
+  @Input() questions!: Question[];
+  @Input() preview: string = "";
+  @Input() album!: Album;
+
+  @Output() isFinished: boolean = false;
+
+  questionNumber: number = 1;
   incorrect: number = 0;
-  isFinished: boolean = false;
-  questions!: Question[];
+  correct: number = 0;
+  selection: string = '';
 
   constructor() { }
 
   ngOnInit(): void {
+    console.log("Questions: ", this.questions);
   }
 
   onSubmit(){

@@ -1,10 +1,9 @@
-import {ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import {NgForm} from "@angular/forms";
-import {AUTHENTICATED_USER, LoginService} from "../services/login-service/login.service";
+import { Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {LoginService} from "../services/login-service/login.service";
 import {Track} from "../models/Track";
 import {Album} from "../models/Album";
 import {Question} from "../models/Question";
-import {randomizedArray, testing, tracksToQuestions} from "../utils/utils";
+import {testing, tracksToQuestions} from "../utils/utils";
 import {UserService} from "../services/user-service/user.service";
 import {Router} from "@angular/router";
 
@@ -78,6 +77,10 @@ export class GamePageComponent implements OnInit {
 
   searchFinished(readyToTest: boolean) {
     this.isReadyToTest = readyToTest;
+  }
+
+  receivesIsFinished(isFinished: boolean) {
+    this.isFinished = isFinished;
   }
 
   save(){
