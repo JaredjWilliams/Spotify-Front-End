@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { UserService } from '../services/user-service/user.service';
 
 interface Settings {
@@ -33,8 +32,8 @@ export class SettingsPageComponent implements OnInit {
     if (sett) this.settings = JSON.parse(sett) as Settings;
   }
 
-  checkHints(): boolean {
-    return this.settings.hints;
+  checkHints(): string {
+    return "None" + this.settings.hints;
   }
   checkNotHints(): boolean {
     return !this.settings.hints;
