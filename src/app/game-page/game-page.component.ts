@@ -39,23 +39,22 @@ export class GamePageComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  onSubmit(){
-    if (this.selection === this.currentQuestion.answer) {
-      this.correct++;
-    } else {
-      this.incorrect++;
-    }
-    if (this.questionNumber === this.questions.length) {
-        this.isFinished = true;
-    } else {
-      this.questionNumber++;
-      this.updateCurrentQuestion(this.questionNumber - 1);
-      this.updatePreview();
-      this.audioPlayer.nativeElement.load();
-      this.audioPlayer.nativeElement.play();
-    }
-
-  }
+  // onSubmit(){
+  //   if (this.selection === this.currentQuestion.answer) {
+  //     this.correct++;
+  //   } else {
+  //     this.incorrect++;
+  //   }
+  //   if (this.questionNumber === this.questions.length) {
+  //       this.isFinished = true;
+  //   } else {
+  //     this.questionNumber++;
+  //     this.updateCurrentQuestion(this.questionNumber - 1);
+  //     this.updatePreview();
+  //     this.audioPlayer.nativeElement.load();
+  //     this.audioPlayer.nativeElement.play();
+  //   }
+  // }
 
   receiveAlbum(album: Album) {
     this.album = album;

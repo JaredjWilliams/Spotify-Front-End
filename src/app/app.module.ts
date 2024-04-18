@@ -16,6 +16,7 @@ import { LeaderboardComponent } from './leaderboard/leaderboard.component';
 import { SettingsPageComponent } from './settings-page/settings-page.component';
 import { HistoryComponent } from './history/history.component';
 import { PlaylistsComponent } from './playlists/playlists.component';
+import { GamePageTestComponent } from './game-page-test/game-page-test.component';
 
 
 const routes: Routes = [
@@ -41,7 +42,8 @@ const routes: Routes = [
       LeaderboardComponent,
       SettingsPageComponent,
       HistoryComponent,
-      PlaylistsComponent
+      PlaylistsComponent,
+      GamePageTestComponent
   ],
   imports: [
       BrowserModule,
