@@ -36,8 +36,7 @@ return {
     }
 })
 
-export const randomizedArray = (array: Question[]) => array.length > 0 ? array.sort(() => Math.random() - 0.5) : array
-export const testing = (array  : Question[]) => {
+export const randomizedArray = (array  : Question[]) => {
     return array.slice()
         .map(value => ({value, sort: Math.random()}))
         .sort((a, b) => a.sort - b.sort)

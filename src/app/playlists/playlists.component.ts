@@ -6,6 +6,7 @@ import {jsonToSearchedTracks, jsonToTracks, searchedTracksToPlaylist} from "../u
 import {Track} from "../models/Track";
 import {SearchedTrack} from "../models/SearchedTrack";
 import {LoginService} from "../services/login-service/login.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-playlists',
@@ -25,7 +26,8 @@ export class PlaylistsComponent implements OnInit {
   constructor(
       private playlistService: PlaylistService,
       private spotifyService: SpotifyService,
-      private loginService: LoginService
+      private loginService: LoginService,
+      private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -52,6 +54,7 @@ export class PlaylistsComponent implements OnInit {
             .subscribe({
                 next : response => {
                     console.log(response)
+                    this.isCreatingPlaylist = false;
                 },
                 error : error => console.log(error.message),
                 complete : () => {
