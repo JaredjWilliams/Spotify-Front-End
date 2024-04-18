@@ -1,4 +1,4 @@
-import {Component, ElementRef, Input, OnInit, Output, ViewChild} from '@angular/core';
+import {Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {Album} from "../models/Album";
 import {Question} from "../models/Question";
 import {Expose} from "class-transformer";
@@ -17,7 +17,7 @@ export class GamePageTestComponent implements OnInit {
   @Input() preview: string = "";
   @Input() album!: Album;
 
-  @Output() isFinished: boolean = false;
+  @Output() isFinished: EventEmitter<boolean> = new EventEmitter<boolean>()
 
   questionNumber: number = 1;
   incorrect: number = 0;
@@ -37,7 +37,7 @@ export class GamePageTestComponent implements OnInit {
       this.incorrect++;
     }
     if (this.questionNumber === this.questions.length) {
-      this.isFinished = true;
+      this.isFinished.emit(true);
     } else {
       this.questionNumber++;
       this.updateCurrentQuestion(this.questionNumber - 1);
